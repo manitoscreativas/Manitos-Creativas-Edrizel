@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alcancías de Yeso Cerámico</title>
+
+<link rel="stylesheet" href="css/estilos.css">
+
+</head>
+
+<body>
+
+<header>
+
+<img src="img/logo.jpeg"
+alt="Logo Manitos Creativas Edrizel"
+width="150">
+
+<h1>Alcancías de Yeso Cerámico</h1>
+
+<nav>
+
+<a href="index.html">Inicio</a>
+
+<a href="catalogo.html">Catálogo</a>
+
+<a href="carrito.html">🛒 Carrito</a>
+
+<a href="contacto.html">Contacto</a>
+
+</nav>
+
+</header>
+
+<main>
+
+<h2>Nuestros modelos de alcancías</h2>
+
+<div class="buscador">
+
+<input
+type="text"
+id="buscarProducto"
+placeholder="🔍 Buscar alcancías..."
+onkeyup="buscarProducto()">
+
+</div>
+
+<section class="catalogo">
+
+<!-- PRODUCTO 1 -->
+
+<div class="producto"
+data-nombre="alcancia stitch yeso ceramico">
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo1"></span>
+
+</h4>
+
+<img src="img/alcancias/alcancias1.jpg"
+alt="Alcancía Stitch">
+
+<h3>
+
+Modelo:
+
+<br>
+
+Alcancía Stitch
+
+</h3>
+
+<p>
+
+Tamaño:
+
+<br>
+
+22 cm
+
+</p>
+
+<p>
+
+Alcancía artesanal de yeso cerámico
+pintada a mano.
+
+</p>
+
+<p class="precio">
+
+S/ 30.00
+
+</p>
+
+<label>
+
+Cantidad:
+
+</label>
+
+<input
+
+type="number"
+
+id="cantidad1"
+
+value="1"
+
+min="1"
+
+class="cantidad-input">
+
+<br><br>
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'A001',
+
+'Alcancía Stitch',
+
+30,
+
+'img/alcancias/alcancias1.jpg',
+
+'cantidad1'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20Alcancía%20Stitch"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+</div>
+
+<!-- PRODUCTO 2 -->
+
+<div class="producto"
+data-nombre="alcancia unicornio yeso ceramico">
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo2"></span>
+
+</h4>
+
+<img src="img/alcancias/alcancias2.jpg"
+alt="Alcancía Unicornio">
+
+<h3>
+
+Modelo:
+
+<br>
+
+Alcancía Unicornio
+
+</h3>
+
+<p>
+
+Tamaño:
+
+<br>
+
+25 cm
+
+</p>
+
+<p>
+
+Modelo personalizado ideal para regalos.
+
+</p>
+
+<p class="precio">
+
+S/ 35.00
+
+</p>
+
+<label>
+
+Cantidad:
+
+</label>
+
+<input
+
+type="number"
+
+id="cantidad2"
+
+value="1"
+
+min="1"
+
+class="cantidad-input">
+
+<br><br>
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'A002',
+
+'Alcancía Unicornio',
+
+35,
+
+'img/alcancias/alcancias2.jpg',
+
+'cantidad2'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20Alcancía%20Unicornio"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+</div>
+
+<!-- PRODUCTO 3 -->
+
+<div class="producto"
+data-nombre="alcancia mickey yeso ceramico">
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo3"></span>
+
+</h4>
+
+<img src="img/alcancias/alcancias3.jpg"
+alt="Alcancía Mickey">
+
+<h3>
+
+Modelo:
+
+<br>
+
+Alcancía Mickey
+
+</h3>
+
+<p>
+
+Tamaño:
+
+<br>
+
+25 cm
+
+</p>
+
+<p>
+
+Diseño infantil decorativo.
+
+</p>
+
+<p class="precio">
+
+S/ 35.00
+
+</p>
+
+<label>
+
+Cantidad:
+
+</label>
+
+<input
+
+type="number"
+
+id="cantidad3"
+
+value="1"
+
+min="1"
+
+class="cantidad-input">
+
+<br><br>
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'A003',
+
+'Alcancía Mickey',
+
+35,
+
+'img/alcancias/alcancias3.jpg',
+
+'cantidad3'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20Alcancía%20Mickey"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+
+© 2026 Manitos Creativas Edrizel
+
+</p>
+
+</footer>
+
+<script src="js/carrito.js"></script>
+
+<script src="js/buscador.js"></script>
+
+<script>
+
+document.getElementById("codigo1").innerHTML =
+generarCodigo("alcancias",1);
+
+document.getElementById("codigo2").innerHTML =
+generarCodigo("alcancias",2);
+
+document.getElementById("codigo3").innerHTML =
+generarCodigo("alcancias",3);
+
+</script>
+
+</body>
+</html>

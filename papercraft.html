@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Papercraft - Modelismo en Papel
+</title>
+
+<link rel="stylesheet" href="css/estilos.css">
+
+</head>
+
+<body>
+
+<header>
+
+<img src="img/logo.jpeg"
+alt="Logo Manitos Creativas Edrizel"
+width="150">
+
+<h1>
+Papercraft (Modelismo en Papel)
+</h1>
+
+<nav>
+
+<a href="index.html">
+Inicio
+</a>
+
+<a href="catalogo.html">
+Catálogo
+</a>
+
+<a href="carrito.html">
+🛒 Carrito
+</a>
+
+<a href="contacto.html">
+Contacto
+</a>
+
+</nav>
+
+</header>
+
+
+<main>
+
+<h2>
+Nuestros modelos Papercraft
+</h2>
+
+
+<div class="buscador">
+
+<input
+type="text"
+id="buscarProducto"
+placeholder="🔍 Buscar Papercraft..."
+onkeyup="buscarProducto()">
+
+</div>
+
+
+<section class="catalogo">
+
+
+<!-- PRODUCTO 1 -->
+
+<div class="producto"
+data-nombre="charizard papercraft pokemon papel">
+
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo1"></span>
+
+</h4>
+
+
+<img src="img/papercraft/charizar.jpg"
+alt="Papercraft Charizard">
+
+
+<h3>
+
+Modelo:
+
+<br>
+
+Charizard Papercraft
+
+</h3>
+
+
+<p>
+
+Tamaño:
+
+<br>
+
+30 cm
+
+</p>
+
+
+<p>
+
+Modelo 3D elaborado en papel,
+ideal para colección y decoración.
+
+</p>
+
+
+<p class="precio">
+
+S/ 35.00
+
+</p>
+
+
+<label>
+
+Cantidad:
+
+</label>
+
+
+<input
+
+type="number"
+
+id="cantidad1"
+
+value="1"
+
+min="1"
+
+class="cantidad-input">
+
+
+<br><br>
+
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'P001',
+
+'Charizard Papercraft',
+
+35,
+
+'img/papercraft/charizar.jpg',
+
+'cantidad1'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20Charizard%20Papercraft"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+
+</div>
+
+
+
+<!-- PRODUCTO 2 -->
+
+
+<div class="producto"
+
+data-nombre="charmilio papercraft pokemon papel">
+
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo2"></span>
+
+</h4>
+
+
+
+<img src="img/papercraft/charmilio.jpg"
+
+alt="Papercraft Charmilio">
+
+
+
+<h3>
+
+Modelo:
+
+<br>
+
+Charmilio Papercraft
+
+</h3>
+
+
+
+<p>
+
+Tamaño:
+
+<br>
+
+25 cm
+
+</p>
+
+
+
+<p>
+
+Figura en papel con diseño 3D
+para coleccionistas y aficionados.
+
+</p>
+
+
+
+<p class="precio">
+
+S/ 30.00
+
+</p>
+
+
+
+<label>
+
+Cantidad:
+
+</label>
+
+
+
+<input
+
+type="number"
+
+id="cantidad2"
+
+value="1"
+
+min="1"
+
+class="cantidad-input">
+
+
+
+<br><br>
+
+
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'P002',
+
+'Charmilio Papercraft',
+
+30,
+
+'img/papercraft/charmilio.jpg',
+
+'cantidad2'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20Charmilio%20Papercraft"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+
+</div>
+
+
+
+
+<!-- PRODUCTO 3 -->
+
+
+<div class="producto"
+
+data-nombre="pikacho papercraft pokemon papel">
+
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo3"></span>
+
+</h4>
+
+
+
+<img src="img/papercraft/pikacho.jpg"
+
+alt="Papercraft Pikacho">
+
+
+
+<h3>
+
+Modelo:
+
+<br>
+
+Pikacho Papercraft
+
+</h3>
+
+
+
+<p>
+
+Tamaño:
+
+<br>
+
+20 cm
+
+</p>
+
+
+
+<p>
+
+Modelo decorativo en papel,
+perfecto para regalos.
+
+</p>
+
+
+
+<p class="precio">
+
+S/ 25.00
+
+</p>
+
+
+
+<label>
+
+Cantidad:
+
+</label>
+
+
+
+<input
+
+type="number"
+
+id="cantidad3"
+
+value="1"
+
+min="1"
+
+class="cantidad-input">
+
+
+
+<br><br>
+
+
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'P003',
+
+'Pikacho Papercraft',
+
+25,
+
+'img/papercraft/pikacho.jpg',
+
+'cantidad3'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20Pikacho%20Papercraft"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+<p>
+
+© 2026 Manitos Creativas Edrizel
+
+</p>
+
+</footer>
+
+
+
+<script src="js/carrito.js"></script>
+
+<script src="js/buscador.js"></script>
+
+
+
+<script>
+
+
+document.getElementById("codigo1").innerHTML =
+
+generarCodigo("papercraft",1);
+
+
+
+document.getElementById("codigo2").innerHTML =
+
+generarCodigo("papercraft",2);
+
+
+
+document.getElementById("codigo3").innerHTML =
+
+generarCodigo("papercraft",3);
+
+
+
+</script>
+
+
+</body>
+
+</html>

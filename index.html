@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo artesanal de Manitos Creativas Edrizel en Moquegua.">
+  <title>Manitos Creativas Edrizel</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio">
+      <img src="img/logo.jpeg" alt="Logo de Manitos Creativas Edrizel">
+      <span><strong>Manitos Creativas</strong><small>Edrizel</small></span>
+    </a>
+    <button class="menu-button" id="menuButton" aria-label="Abrir menú">☰</button>
+    <nav id="menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="admin-link" href="admin.html">Administrador</a>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <span class="eyebrow">Hecho a mano en Moquegua</span>
+        <h1>Pequeñas manos.<br><em>Grandes recuerdos.</em></h1>
+        <p>Figuras y alcancías artesanales para que los niños pinten, imaginen y compartan momentos inolvidables en familia.</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="#catalogo">Ver catálogo</a>
+          <a class="text-button" href="#nosotros">Conoce nuestro trabajo →</a>
+        </div>
+        <div class="hero-notes"><span>✦ Yeso cerámico</span><span>✦ Diseños únicos</span><span>✦ Hecho con cariño</span></div>
+      </div>
+      <div class="hero-visual">
+        <div class="sun"></div>
+        <img src="img/alcancias/alcancias1.jpg" alt="Alcancía artesanal Stitch">
+        <div class="hero-card"><strong>Tu primera alcancía</strong><span>Lista para pintar y decorar</span></div>
+      </div>
+    </section>
+
+    <section class="catalog-section" id="catalogo">
+      <div class="section-heading">
+        <div><span class="eyebrow">Nuestro catálogo</span><h2>Elige, pinta y crea</h2></div>
+        <p>Encuentra el diseño perfecto para regalar o disfrutar en familia.</p>
+      </div>
+      <div class="filters">
+        <div class="tabs" id="categoryTabs">
+          <button class="active" data-category="Todos">Todos</button>
+          <button data-category="Alcancías">Alcancías</button>
+          <button data-category="Relieves">Relieves</button>
+          <button data-category="Papercraft">Papercraft</button>
+        </div>
+        <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Buscar producto..."></label>
+      </div>
+      <p class="notice" id="catalogNotice">Cargando productos…</p>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="story" id="nosotros">
+      <div><span class="eyebrow">Nuestra esencia</span><h2>Más que una figura,<br>un momento para recordar</h2></div>
+      <p>Elaboramos cada pieza con dedicación para que padres e hijos pinten juntos y conviertan una figura en un recuerdo propio.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contacto">
+    <div class="footer-brand"><img src="img/logo.jpeg" alt=""><div><strong>Manitos Creativas Edrizel</strong><span>Arte, juego y momentos en familia.</span></div></div>
+    <div><strong>Pedidos y consultas</strong><span>Moquegua, Perú</span><a href="https://wa.me/51937344997">WhatsApp: +51 937 344 997</a></div>
+    <p>© 2026 Manitos Creativas Edrizel</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

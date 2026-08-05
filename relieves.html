@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Figuras con Relieve de Yeso Cerámico
+</title>
+
+<link rel="stylesheet" href="css/estilos.css">
+
+</head>
+
+<body>
+
+<header>
+
+<img src="img/logo.jpeg"
+alt="Logo Manitos Creativas Edrizel"
+width="150">
+
+<h1>
+Figuras con Relieve de Yeso Cerámico
+</h1>
+
+<nav>
+
+<a href="index.html">
+Inicio
+</a>
+
+<a href="catalogo.html">
+Catálogo
+</a>
+
+<a href="carrito.html">
+🛒 Carrito
+</a>
+
+<a href="contacto.html">
+Contacto
+</a>
+
+</nav>
+
+</header>
+
+<main>
+
+<h2>
+Nuestros diseños en relieve
+</h2>
+
+<div class="buscador">
+
+<input
+type="text"
+id="buscarProducto"
+placeholder="🔍 Buscar relieves..."
+onkeyup="buscarProducto()">
+
+</div>
+
+<section class="catalogo">
+
+<!-- PRODUCTO 1 -->
+
+<div class="producto"
+data-nombre="virgen maría relieve yeso cerámico">
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo1"></span>
+
+</h4>
+
+<img src="img/relieves/relieves1.jpg"
+alt="Virgen María en relieve">
+
+<h3>
+
+Modelo:
+
+<br>
+
+Virgen María en Relieve
+
+</h3>
+
+<p>
+
+Tamaño:
+
+<br>
+
+30 cm
+
+</p>
+
+<p>
+
+Figura decorativa elaborada en yeso cerámico
+con acabado artesanal.
+
+</p>
+
+<p class="precio">
+
+S/ 40.00
+
+</p>
+
+<label>
+
+Cantidad:
+
+</label>
+
+<input
+type="number"
+id="cantidad1"
+value="1"
+min="1"
+class="cantidad-input">
+
+<br><br>
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'R001',
+
+'Virgen María en Relieve',
+
+40,
+
+'img/relieves/relieves1.jpg',
+
+'cantidad1'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20Virgen%20María%20en%20Relieve"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+</div>
+
+<!-- PRODUCTO 2 -->
+
+<div class="producto"
+data-nombre="última cena relieve yeso cerámico">
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo2"></span>
+
+</h4>
+
+<img src="img/relieves/relieves2.jpg"
+alt="Última Cena en relieve">
+
+<h3>
+
+Modelo:
+
+<br>
+
+La Última Cena
+
+</h3>
+
+<p>
+
+Tamaño:
+
+<br>
+
+40 cm
+
+</p>
+
+<p>
+
+Relieve decorativo ideal para salas,
+hogares y espacios especiales.
+
+</p>
+
+<p class="precio">
+
+S/ 60.00
+
+</p>
+
+<label>
+
+Cantidad:
+
+</label>
+
+<input
+type="number"
+id="cantidad2"
+value="1"
+min="1"
+class="cantidad-input">
+
+<br><br>
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'R002',
+
+'La Última Cena',
+
+60,
+
+'img/relieves/relieves2.jpg',
+
+'cantidad2'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20La%20Última%20Cena"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+</div>
+
+<!-- PRODUCTO 3 -->
+
+<div class="producto"
+data-nombre="diseño floral relieve yeso cerámico flores">
+
+<h4 class="numero-producto">
+
+Código:
+
+<span id="codigo3"></span>
+
+</h4>
+
+<img src="img/relieves/relieves3.jpg"
+alt="Diseño Floral en relieve">
+
+<h3>
+
+Modelo:
+
+<br>
+
+Diseño Floral en Relieve
+
+</h3>
+
+<p>
+
+Tamaño:
+
+<br>
+
+25 cm
+
+</p>
+
+<p>
+
+Decoración artesanal con detalles
+hechos a mano.
+
+</p>
+
+<p class="precio">
+
+S/ 45.00
+
+</p>
+
+<label>
+
+Cantidad:
+
+</label>
+
+<input
+type="number"
+id="cantidad3"
+value="1"
+min="1"
+class="cantidad-input">
+
+<br><br>
+
+<button class="boton"
+
+onclick="agregarProductoConCantidad(
+
+'R003',
+
+'Diseño Floral en Relieve',
+
+45,
+
+'img/relieves/relieves3.jpg',
+
+'cantidad3'
+
+)">
+
+🛒 Agregar al carrito
+
+</button>
+
+<a class="boton whatsapp"
+
+href="https://wa.me/51912345678?text=Hola%20quiero%20comprar%20Diseño%20Floral%20en%20Relieve"
+
+target="_blank">
+
+📱 Comprar por WhatsApp
+
+</a>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+
+© 2026 Manitos Creativas Edrizel
+
+</p>
+
+</footer>
+
+<script src="js/carrito.js"></script>
+
+<script src="js/buscador.js"></script>
+
+<script>
+
+document.getElementById("codigo1").innerHTML =
+generarCodigo("relieves",1);
+
+document.getElementById("codigo2").innerHTML =
+generarCodigo("relieves",2);
+
+document.getElementById("codigo3").innerHTML =
+generarCodigo("relieves",3);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+Contacto - Manitos Creativas Edrizel
+</title>
+
+
+<link rel="stylesheet" href="css/estilos.css">
+
+
+</head>
+
+
+
+<body>
+
+
+
+<header>
+
+
+<img src="img/logo.jpeg"
+alt="Logo Manitos Creativas Edrizel"
+width="150">
+
+
+
+<h1>
+Manitos Creativas Edrizel
+</h1>
+
+
+
+
+
+<nav>
+
+
+<a href="index.html">
+Inicio
+</a>
+
+
+<a href="catalogo.html">
+Catálogo
+</a>
+
+
+<a href="carrito.html">
+🛒 Carrito
+</a>
+
+
+<a href="contacto.html">
+Contacto
+</a>
+
+
+</nav>
+
+
+</header>
+
+
+
+
+
+
+
+<main>
+
+
+
+<h2>
+Contáctanos
+</h2>
+
+
+
+
+<div class="contenedor-contacto">
+
+
+
+
+
+<section class="producto">
+
+
+
+<h3>
+Solicita información o realiza tu pedido
+</h3>
+
+
+
+
+
+<form>
+
+
+
+<label>
+Nombre:
+</label>
+
+
+<br>
+
+
+<input 
+type="text"
+id="nombre"
+placeholder="Ingrese su nombre"
+required>
+
+
+
+<br><br>
+
+
+
+
+
+<label>
+Correo:
+</label>
+
+
+<br>
+
+
+
+<input
+
+type="email"
+
+id="correo"
+
+placeholder="Ingrese su correo"
+
+required>
+
+
+
+
+<br><br>
+
+
+
+
+
+<label>
+Teléfono:
+</label>
+
+
+<br>
+
+
+
+<input
+
+type="tel"
+
+id="telefono"
+
+placeholder="Ingrese su teléfono"
+
+required>
+
+
+
+
+<br><br>
+
+
+
+
+
+<label>
+Mensaje:
+</label>
+
+
+<br>
+
+
+
+<textarea
+
+id="mensaje"
+
+rows="5"
+
+placeholder="Escriba su mensaje">
+
+</textarea>
+
+
+
+
+
+<br><br>
+
+
+
+
+
+<button
+
+type="button"
+
+class="boton whatsapp"
+
+onclick="enviarContacto()">
+
+
+📱 Enviar por WhatsApp
+
+
+</button>
+
+
+
+</form>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+<section class="informacion-contacto">
+
+
+
+<h3>
+Nuestra información
+</h3>
+
+
+
+<p>
+📍 <b>Dirección:</b>
+<br>
+Tu dirección aquí
+</p>
+
+
+
+<p>
+📞 <b>Teléfono:</b>
+<br>
+912 345 678
+</p>
+
+
+
+<p>
+📧 <b>Correo:</b>
+<br>
+manitoscreativas@gmail.com
+</p>
+
+
+
+<p>
+📱 <b>WhatsApp:</b>
+<br>
+912 345 678
+</p>
+
+
+
+<p>
+🕒 <b>Horario:</b>
+<br>
+Lunes a sábado
+<br>
+9:00 am - 6:00 pm
+</p>
+
+
+
+<p>
+🎨
+Manitos Creativas Edrizel
+<br>
+Creaciones hechas con amor.
+</p>
+
+
+
+</section>
+
+
+
+
+
+
+</div>
+
+
+
+</main>
+
+
+
+
+
+
+
+<footer>
+
+
+<p>
+
+© 2026 Manitos Creativas Edrizel
+
+</p>
+
+
+</footer>
+
+
+
+
+
+
+
+<script>
+
+
+function enviarContacto(){
+
+
+let nombre =
+document.getElementById("nombre").value;
+
+
+let telefono =
+document.getElementById("telefono").value;
+
+
+let mensaje =
+document.getElementById("mensaje").value;
+
+
+
+
+let texto =
+
+"Hola, soy " + nombre +
+
+"%0A%0ATeléfono: " + telefono +
+
+"%0A%0AConsulta: " + mensaje;
+
+
+
+
+
+window.open(
+
+"https://wa.me/51912345678?text=" + texto,
+
+"_blank"
+
+);
+
+
+
+}
+
+
+
+</script>
+
+
+
+
+
+</body>
+
+
+</html>
