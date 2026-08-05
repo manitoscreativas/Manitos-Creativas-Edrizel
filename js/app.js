@@ -1,4 +1,4 @@
-import { subscribeProducts } from "./firebase-service.js";
+import { subscribeAppearance, subscribeProducts } from "./firebase-service.js";
 
 const fallbackProducts = [
   { id:"A001", code:"A001", name:"Alcancía Stitch", category:"Alcancías", size:"22 cm", description:"Alcancía artesanal de yeso cerámico, lista para pintar.", price:30, image:"img/alcancias/alcancias1.jpg", available:true, visible:true, sortOrder:1 },
@@ -38,3 +38,7 @@ document.querySelector("#menuButton").addEventListener("click", () => document.q
 
 renderProducts();
 subscribeProducts((firebaseProducts) => { if (firebaseProducts.length) products = firebaseProducts; renderProducts(); }, () => { notice.textContent = "Mostrando catálogo inicial. Firebase está pendiente de configuración."; });
+subscribeAppearance((appearance) => {
+  if (appearance.logo) document.querySelectorAll("[data-site-logo]").forEach((image) => { image.src = appearance.logo; });
+  if (appearance.hero) document.querySelector("#heroImage").src = appearance.hero;
+});

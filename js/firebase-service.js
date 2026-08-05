@@ -11,6 +11,10 @@ export function subscribeProducts(onProducts, onError = console.error, includeHi
   const source = includeHidden ? collection(db, "products") : query(collection(db, "products"), where("visible", "==", true));
   return onSnapshot(source, (snapshot) => onProducts(snapshot.docs.map((item) => ({ id:item.id, ...item.data() })).sort((a,b) => Number(a.sortOrder)-Number(b.sortOrder))), onError);
 }
+export function subscribeAppearance(onAppearance, onError = console.error) {
+  if (!firebaseReady) return () => {};
+  return onSnapshot(doc(db, "site", "appearance"), (snapshot) => onAppearance(snapshot.exists() ? snapshot.data() : {}), onError);
+}
 export async function login(email, password) {
   if (!firebaseReady) throw new Error("Primero configura Firebase.");
   const credential = await signInWithEmailAndPassword(auth, email, password);
@@ -19,15 +23,22 @@ export async function login(email, password) {
 }
 export function watchAdmin(callback) { if (!firebaseReady) { callback(null); return () => {}; } return onAuthStateChanged(auth, (user) => callback(user?.email?.toLowerCase() === ADMIN_EMAIL ? user : null)); }
 export function logout() { return signOut(auth); }
-async function optimizeImage(file) {
+async function optimizeImage(file, maxSide = 720, maxLength = 700000) {
   if (!file.type.startsWith("image/")) throw new Error("Selecciona una fotografía válida.");
-  const bitmap = await createImageBitmap(file); const maxSide = 720; const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+  const bitmap = await createImageBitmap(file); const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
   const canvas = document.createElement("canvas"); canvas.width = Math.max(1, Math.round(bitmap.width * scale)); canvas.height = Math.max(1, Math.round(bitmap.height * scale));
   const context = canvas.getContext("2d"); context.fillStyle = "#ffffff"; context.fillRect(0, 0, canvas.width, canvas.height); context.drawImage(bitmap, 0, 0, canvas.width, canvas.height); bitmap.close();
   let quality = 0.76; let result = canvas.toDataURL("image/jpeg", quality);
-  while (result.length > 700000 && quality > 0.4) { quality -= 0.08; result = canvas.toDataURL("image/jpeg", quality); }
-  if (result.length > 850000) throw new Error("La fotografía continúa siendo demasiado grande. Elige una imagen más pequeña.");
+  while (result.length > maxLength && quality > 0.32) { quality -= 0.08; result = canvas.toDataURL("image/jpeg", quality); }
+  if (result.length > maxLength + 50000) throw new Error("La fotografía continúa siendo demasiado grande. Elige una imagen más pequeña.");
   return result;
+}
+export async function saveAppearance(current, logoFile, heroFile) {
+  if (!auth.currentUser || auth.currentUser.email?.toLowerCase() !== ADMIN_EMAIL) throw new Error("Acceso no autorizado.");
+  const appearance = { logo:current.logo || "", hero:current.hero || "" };
+  if (logoFile) appearance.logo = await optimizeImage(logoFile, 420, 250000);
+  if (heroFile) appearance.hero = await optimizeImage(heroFile, 960, 520000);
+  await setDoc(doc(db, "site", "appearance"), appearance, { merge:true });
 }
 export async function saveProduct(product, file) {
   if (!auth.currentUser || auth.currentUser.email?.toLowerCase() !== ADMIN_EMAIL) throw new Error("Acceso no autorizado.");
