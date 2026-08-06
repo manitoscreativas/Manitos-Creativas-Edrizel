@@ -40,13 +40,32 @@ export async function saveAppearance(current, logoFile, heroFile) {
   if (heroFile) appearance.hero = await optimizeImage(heroFile, 960, 520000);
   await setDoc(doc(db, "site", "appearance"), appearance, { merge:true });
 }
+export async function saveSiteSettings(settings, logoFile, heroFile) {
+  if (!auth.currentUser || auth.currentUser.email?.toLowerCase() !== ADMIN_EMAIL) throw new Error("Acceso no autorizado.");
+  const data = { ...settings };
+  if (logoFile) data.logo = await optimizeImage(logoFile, 420, 250000);
+  if (heroFile) data.hero = await optimizeImage(heroFile, 960, 520000);
+  await setDoc(doc(db, "site", "appearance"), data, { merge:true });
+}
 export async function saveProduct(product, file) {
   if (!auth.currentUser || auth.currentUser.email?.toLowerCase() !== ADMIN_EMAIL) throw new Error("Acceso no autorizado.");
   const id = product.id || product.code.toUpperCase(); let image = product.image || "";
   if (file) image = await optimizeImage(file);
-  await setDoc(doc(db, "products", id), { code:product.code.toUpperCase(), name:product.name, category:product.category, size:product.size || "", description:product.description || "", price:Number(product.price), image, available:Boolean(product.available), visible:Boolean(product.visible), sortOrder:Number(product.sortOrder) || 0 }, { merge:true });
+  const stock = Math.max(0, Number(product.stock) || 0);
+  await setDoc(doc(db, "products", id), { code:product.code.toUpperCase(), name:product.name, category:product.category, size:product.size || "", description:product.description || "", price:Number(product.price), salePrice:Number(product.salePrice) || 0, badge:product.badge || "", featured:Boolean(product.featured), stock, image, available:Boolean(product.available) && stock !== 0, visible:Boolean(product.visible), sortOrder:Number(product.sortOrder) || 0 }, { merge:true });
 }
 export async function removeProduct(product) { await deleteDoc(doc(db, "products", product.id)); }
+export async function exportCatalog() {
+  if (!auth.currentUser || auth.currentUser.email?.toLowerCase() !== ADMIN_EMAIL) throw new Error("Acceso no autorizado.");
+  const productsSnapshot = await getDocs(collection(db, "products"));
+  return { version:1, exportedAt:new Date().toISOString(), appearance:await new Promise((resolve, reject) => { const stop = subscribeAppearance((data) => { stop(); resolve(data); }, reject); }), products:productsSnapshot.docs.map((item) => ({ id:item.id, ...item.data() })) };
+}
+export async function importCatalog(backup) {
+  if (!auth.currentUser || auth.currentUser.email?.toLowerCase() !== ADMIN_EMAIL) throw new Error("Acceso no autorizado.");
+  if (!Array.isArray(backup?.products)) throw new Error("El archivo de respaldo no es válido.");
+  await Promise.all(backup.products.map(({ id, ...data }) => setDoc(doc(db, "products", id), data, { merge:true })));
+  if (backup.appearance) await setDoc(doc(db, "site", "appearance"), backup.appearance, { merge:true });
+}
 export async function seedInitialProducts() {
   if (!auth.currentUser || auth.currentUser.email?.toLowerCase() !== ADMIN_EMAIL) return;
   const existingProducts = await getDocs(collection(db, "products"));
@@ -62,6 +81,6 @@ export async function seedInitialProducts() {
     ["P002","Charmilio Papercraft","Papercraft","25 cm","Figura 3D en papel para coleccionistas.",30,"img/papercraft/charmilio.jpg"],
     ["P003","Pikacho Papercraft","Papercraft","20 cm","Modelo decorativo en papel perfecto para regalos.",25,"img/papercraft/pikacho.jpg"]
   ];
-  await Promise.all(initial.map(([code,name,category,size,description,price,image], index) => setDoc(doc(db, "products", code), { code,name,category,size,description,price,image,available:true,visible:true,sortOrder:index+1 }, { merge:true })));
+  await Promise.all(initial.map(([code,name,category,size,description,price,image], index) => setDoc(doc(db, "products", code), { code,name,category,size,description,price,salePrice:0,badge:index < 3 ? "Popular":"",featured:index < 3,stock:10,image,available:true,visible:true,sortOrder:index+1 }, { merge:true })));
 }
 export { firebaseReady };

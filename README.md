@@ -10,6 +10,11 @@ Catálogo web adaptable para computadora y celular, publicado mediante GitHub Pa
 - Agregar, modificar, ocultar, agotar y eliminar productos.
 - Carga de fotografías desde celular o computadora.
 - Impresión del catálogo físico A4, completa o por categoría.
+- Carrito con cantidades, total y envío del pedido por WhatsApp.
+- Stock, ofertas, etiquetas y productos destacados.
+- Portada, textos, contacto y redes sociales editables.
+- Portada A4 con código QR hacia el catálogo público.
+- Descarga y restauración de copias de seguridad en formato JSON.
 
 ## Publicación en GitHub Pages
 

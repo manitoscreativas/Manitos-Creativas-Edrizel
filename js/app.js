@@ -1,44 +1,28 @@
 import { subscribeAppearance, subscribeProducts } from "./firebase-service.js";
 
 const fallbackProducts = [
-  { id:"A001", code:"A001", name:"Alcancía Stitch", category:"Alcancías", size:"22 cm", description:"Alcancía artesanal de yeso cerámico, lista para pintar.", price:30, image:"img/alcancias/alcancias1.jpg", available:true, visible:true, sortOrder:1 },
-  { id:"A002", code:"A002", name:"Alcancía Unicornio", category:"Alcancías", size:"25 cm", description:"Modelo infantil personalizado ideal para regalos.", price:35, image:"img/alcancias/alcancias2.jpg", available:true, visible:true, sortOrder:2 },
-  { id:"A003", code:"A003", name:"Alcancía Mickey", category:"Alcancías", size:"25 cm", description:"Diseño infantil decorativo elaborado en yeso cerámico.", price:35, image:"img/alcancias/alcancias3.jpg", available:true, visible:true, sortOrder:3 },
-  { id:"R001", code:"R001", name:"Virgen María en Relieve", category:"Relieves", size:"30 cm", description:"Figura decorativa con acabado artesanal.", price:40, image:"img/relieves/relieves1.jpg", available:true, visible:true, sortOrder:4 },
-  { id:"R002", code:"R002", name:"La Última Cena", category:"Relieves", size:"40 cm", description:"Relieve decorativo para hogares y espacios especiales.", price:60, image:"img/relieves/relieves2.jpg", available:true, visible:true, sortOrder:5 },
-  { id:"R003", code:"R003", name:"Diseño Floral en Relieve", category:"Relieves", size:"25 cm", description:"Decoración artesanal con detalles hechos a mano.", price:45, image:"img/relieves/relieves3.jpg", available:true, visible:true, sortOrder:6 },
-  { id:"P001", code:"P001", name:"Charizard Papercraft", category:"Papercraft", size:"30 cm", description:"Modelo 3D elaborado en papel para colección.", price:35, image:"img/papercraft/charizar.jpg", available:true, visible:true, sortOrder:7 },
-  { id:"P002", code:"P002", name:"Charmilio Papercraft", category:"Papercraft", size:"25 cm", description:"Figura 3D en papel para coleccionistas.", price:30, image:"img/papercraft/charmilio.jpg", available:true, visible:true, sortOrder:8 },
-  { id:"P003", code:"P003", name:"Pikacho Papercraft", category:"Papercraft", size:"20 cm", description:"Modelo decorativo en papel perfecto para regalos.", price:25, image:"img/papercraft/pikacho.jpg", available:true, visible:true, sortOrder:9 }
-];
+  ["A001","Alcancía Stitch","Alcancías",30,"img/alcancias/alcancias1.jpg"],["A002","Alcancía Unicornio","Alcancías",35,"img/alcancias/alcancias2.jpg"],["A003","Alcancía Mickey","Alcancías",35,"img/alcancias/alcancias3.jpg"],["R001","Virgen María en Relieve","Relieves",40,"img/relieves/relieves1.jpg"],["R002","La Última Cena","Relieves",60,"img/relieves/relieves2.jpg"],["R003","Diseño Floral en Relieve","Relieves",45,"img/relieves/relieves3.jpg"],["P001","Charizard Papercraft","Papercraft",35,"img/papercraft/charizar.jpg"],["P002","Charmilio Papercraft","Papercraft",30,"img/papercraft/charmilio.jpg"],["P003","Pikacho Papercraft","Papercraft",25,"img/papercraft/pikacho.jpg"]
+].map(([code,name,category,price,image],index) => ({ id:code,code,name,category,price,image,stock:10,available:true,visible:true,sortOrder:index+1,description:"Producto artesanal listo para disfrutar en familia." }));
 
-let products = fallbackProducts;
-let selectedCategory = "Todos";
-const grid = document.querySelector("#productGrid");
-const notice = document.querySelector("#catalogNotice");
-const search = document.querySelector("#searchInput");
-
+const $ = (selector) => document.querySelector(selector); let products = fallbackProducts; let selectedCategory = "Todos"; let site = { sitePhone:"+51 937 344 997" }; let cart = JSON.parse(localStorage.getItem("manitos-cart") || "{}");
+const finalPrice = (item) => Number(item.salePrice) > 0 ? Number(item.salePrice) : Number(item.price); const stockOf = (item) => Number(item.stock ?? (item.available === false ? 0 : 10)); const money = (value) => `S/ ${Number(value).toFixed(2)}`;
+function saveCart() { localStorage.setItem("manitos-cart", JSON.stringify(cart)); renderCart(); }
 function renderProducts() {
-  const term = search.value.trim().toLowerCase();
-  const filtered = products.filter((item) => item.visible !== false && (selectedCategory === "Todos" || item.category === selectedCategory) && `${item.name} ${item.code}`.toLowerCase().includes(term));
-  grid.innerHTML = filtered.map((item) => `
-    <article class="product-card">
-      <div class="product-image"><img src="${item.image}" alt="${item.name}"><span class="code">${item.code}</span>${item.available ? "" : '<span class="sold-out">Agotado</span>'}</div>
-      <div class="product-info"><span class="category">${item.category} · ${item.size || ""}</span><h3>${item.name}</h3><p>${item.description || ""}</p><div class="product-bottom"><strong>S/ ${Number(item.price).toFixed(2)}</strong><a href="https://wa.me/51937344997?text=${encodeURIComponent(`Hola, quiero consultar por ${item.name} (${item.code})`)}" target="_blank" rel="noreferrer">Pedir por WhatsApp</a></div></div>
-    </article>`).join("");
-  notice.textContent = filtered.length ? `${filtered.length} producto${filtered.length === 1 ? "" : "s"}` : "No se encontraron productos.";
+  const term = $("#searchInput").value.trim().toLowerCase(); const filtered = products.filter((item) => item.visible !== false && (selectedCategory === "Todos" || selectedCategory === "Destacados" && item.featured || item.category === selectedCategory) && `${item.name} ${item.code}`.toLowerCase().includes(term));
+  $("#productGrid").innerHTML = filtered.map((item) => `<article class="product-card"><div class="product-image"><img src="${item.image}" alt="${item.name}"><span class="code">${item.code}</span>${item.badge ? `<span class="product-badge">${item.badge}</span>`:""}${stockOf(item) <= 0 ? '<span class="sold-out">Agotado</span>':stockOf(item) <= 3 ? '<span class="low-stock">Últimas unidades</span>':""}</div><div class="product-info"><span class="category">${item.category} · ${item.size || ""}</span><h3>${item.name}</h3><p>${item.description || ""}</p><div class="product-bottom"><div class="price-wrap"><strong>${money(finalPrice(item))}</strong>${item.salePrice ? `<s>${money(item.price)}</s>`:""}</div><button class="add-cart" data-add="${item.id}" ${stockOf(item)<=0?"disabled":""}>Agregar</button></div></div></article>`).join("");
+  $("#catalogNotice").textContent = filtered.length ? `${filtered.length} producto${filtered.length===1?"":"s"}`:"No se encontraron productos.";
 }
+function renderTabs() { const categories = ["Todos","Destacados",...new Set(products.map((item)=>item.category))]; $("#categoryTabs").innerHTML = categories.map((name)=>`<button class="${name===selectedCategory?"active":""}" data-category="${name}">${name}</button>`).join(""); }
+function cartEntries() { return Object.entries(cart).map(([id,quantity]) => ({ item:products.find((product)=>product.id===id), quantity })).filter((entry)=>entry.item); }
+function renderCart() { const entries=cartEntries(); $("#cartCount").textContent=entries.reduce((sum,e)=>sum+e.quantity,0); $("#cartItems").innerHTML=entries.length?entries.map(({item,quantity})=>`<article class="cart-item"><img src="${item.image}" alt=""><div><strong>${item.name}</strong><span>${money(finalPrice(item))}</span><div class="quantity"><button data-minus="${item.id}">−</button><b>${quantity}</b><button data-plus="${item.id}">+</button><button class="remove" data-remove="${item.id}">Quitar</button></div></div></article>`).join(""):"<p>Tu pedido está vacío.</p>"; $("#cartTotal").textContent=money(entries.reduce((sum,e)=>sum+finalPrice(e.item)*e.quantity,0)); }
+function openCart(){ $("#cartDrawer").classList.add("open"); $("#cartOverlay").classList.remove("hidden"); } function closeCart(){ $("#cartDrawer").classList.remove("open"); $("#cartOverlay").classList.add("hidden"); }
 
-document.querySelectorAll("#categoryTabs button").forEach((button) => button.addEventListener("click", () => {
-  document.querySelectorAll("#categoryTabs button").forEach((item) => item.classList.remove("active"));
-  button.classList.add("active"); selectedCategory = button.dataset.category; renderProducts();
-}));
-search.addEventListener("input", renderProducts);
-document.querySelector("#menuButton").addEventListener("click", () => document.querySelector("#menu").classList.toggle("open"));
+$("#categoryTabs").addEventListener("click",(event)=>{if(!event.target.dataset.category)return;selectedCategory=event.target.dataset.category;renderTabs();renderProducts();}); $("#searchInput").addEventListener("input",renderProducts); $("#menuButton").addEventListener("click",()=>$("#menu").classList.toggle("open"));
+$("#productGrid").addEventListener("click",(event)=>{const id=event.target.dataset.add;if(!id)return;const item=products.find(p=>p.id===id);cart[id]=Math.min(stockOf(item),Number(cart[id]||0)+1);saveCart();openCart();});
+$("#cartItems").addEventListener("click",(event)=>{const id=event.target.dataset.plus||event.target.dataset.minus||event.target.dataset.remove;if(!id)return;if(event.target.dataset.remove)delete cart[id];else if(event.target.dataset.plus){const item=products.find(p=>p.id===id);cart[id]=Math.min(stockOf(item),cart[id]+1);}else{cart[id]-=1;if(cart[id]<=0)delete cart[id];}saveCart();});
+$("#cartButton").addEventListener("click",openCart); $("#closeCart").addEventListener("click",closeCart); $("#cartOverlay").addEventListener("click",closeCart); $("#clearCart").addEventListener("click",()=>{cart={};saveCart();});
+$("#sendOrder").addEventListener("click",()=>{const entries=cartEntries();if(!entries.length)return alert("Agrega al menos un producto.");const name=$("#customerName").value.trim()||"Cliente";const lines=entries.map(({item,quantity})=>`• ${quantity} x ${item.name} (${item.code}) - ${money(finalPrice(item)*quantity)}`);const total=entries.reduce((sum,e)=>sum+finalPrice(e.item)*e.quantity,0);const phone=(site.sitePhone||"51937344997").replace(/\D/g,"");window.open(`https://wa.me/${phone}?text=${encodeURIComponent(`Hola, soy ${name}. Quiero realizar este pedido:\n\n${lines.join("\n")}\n\nTotal: ${money(total)}\n\nPor favor, confírmeme la disponibilidad.`)}`,"_blank");});
 
-renderProducts();
-subscribeProducts((firebaseProducts) => { if (firebaseProducts.length) products = firebaseProducts; renderProducts(); }, () => { notice.textContent = "Mostrando catálogo inicial. Firebase está pendiente de configuración."; });
-subscribeAppearance((appearance) => {
-  if (appearance.logo) document.querySelectorAll("[data-site-logo]").forEach((image) => { image.src = appearance.logo; });
-  if (appearance.hero) document.querySelector("#heroImage").src = appearance.hero;
-});
+renderTabs();renderProducts();renderCart();
+subscribeProducts((items)=>{if(items.length)products=items;renderTabs();renderProducts();renderCart();},()=>{});
+subscribeAppearance((data)=>{site={...site,...data};if(site.logo)document.querySelectorAll("[data-site-logo]").forEach((image)=>image.src=site.logo);if(site.hero)$("#heroImage").src=site.hero;const fields={heroEyebrow:"heroEyebrow",heroTitle:"heroTitle",heroAccent:"heroAccent",heroDescription:"heroDescription",heroNote1:"heroNote1",heroNote2:"heroNote2",heroNote3:"heroNote3",heroCardTitle:"heroCardTitle",heroCardText:"heroCardText",storyEyebrow:"storyEyebrow",storyTitle:"storyTitle",storyText:"storyText",footerTagline:"footerTagline",contactTitle:"contactTitle",siteLocation:"siteLocation"};Object.entries(fields).forEach(([key,id])=>{if(site[key])$(`#${id}`).textContent=site[key];});if(site.businessName)document.querySelectorAll("[data-business-name]").forEach((element)=>element.textContent=site.businessName);if(site.sitePhone){$("#siteWhatsapp").textContent=`WhatsApp: ${site.sitePhone}`;$("#siteWhatsapp").href=`https://wa.me/${site.sitePhone.replace(/\D/g,"")}`;}$("#socialLinks").innerHTML=[["Instagram",site.instagram],["Facebook",site.facebook],["TikTok",site.tiktok]].filter(([,url])=>url).map(([name,url])=>`<a href="${url}" target="_blank" rel="noreferrer">${name}</a>`).join("");});
