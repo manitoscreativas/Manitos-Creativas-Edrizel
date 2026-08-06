@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://manitoscreativas.github.io/Manitos-Creativas-Edrizel/sitemap.xml
