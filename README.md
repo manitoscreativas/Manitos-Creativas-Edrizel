@@ -15,6 +15,8 @@ Catálogo web adaptable para computadora y celular, publicado mediante GitHub Pa
 - Portada, textos, contacto y redes sociales editables.
 - Portada A4 con código QR hacia el catálogo público.
 - Descarga y restauración de copias de seguridad en formato JSON.
+- Sección editable de eventos para cumpleaños, bautizos, jardines y colegios.
+- Servicio editable de alcancías personalizadas con entrega o envío.
 
 ## Publicación en GitHub Pages
 
